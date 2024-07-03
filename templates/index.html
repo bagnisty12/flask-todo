@@ -6,24 +6,29 @@
     <title>Pierwsza Strona!</title>
 </head>
 <body>
+    {{ zmienna }} </br>
+    {{ wiek }}
+    {% include 'form.html' %}
+
+
+
+
+
     <!-- Header -->
-    <h1>Nagłówek</h1>
+    <!-- <h1>Nagłówek</h1>
     <h2>Nagłówek</h2>
     <h3>Nagłówek</h3>
     <h4>Nagłówek</h4>
-    <p>Test</p>
+    <p>Test</p> -->
     <!-- div to jest nic. Pudełko bez formy -->
-    <div>
+    <!-- <div>
         PUDEŁKO!
         <div>
             POD PUDEŁKO
         </div>
 
-    </div>
+    </div> -->
     <!-- src to source -> źródło -->
-    <img alt="Google" height="92" src="{{ url_for('static', filename='images/example.jpg') }}"  width="272" >
-
-    {{ zmienna }}
     
 </body>
 </html>
