@@ -1,1 +1,53 @@
-{{ chat }}
+Ostatnie wiadomości:<br>
+
+{% for c in chat %}
+{{c}} <br>
+{% endfor %} 
+<!-- komentarz w htmlu -->
+<script>
+// komentarz w JS
+
+// JSowy print()
+console.log("Hello world!")
+async function fetchData() {
+
+    // try -> próbuje, a jak sie nie uda, to error zostaje przekazany do catch()
+    try {
+        // Wykonanie zapytania GET do podstrony /wiadomosci
+        const response = await fetch('/wiadomosci');
+        
+        // Sprawdzenie czy odpowiedź jest poprawna
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        
+        // Parsowanie odpowiedzi jako tekst
+        const data = await response.json();
+        return data
+        // Wyświetlenie danych w konsoli
+        console.log(data);
+    } catch (error) {
+        // Obsługa błędów
+        console.error('Wystąpił błąd podczas pobierania danych:', error);
+    }
+}
+
+async function main() {
+    // Wywołanie funkcji pobierającej dane
+    // 1. co 5 sekund pobrać wiadomości
+    // 2. zamienić stare na nowe wiadomości w HTMLU
+    data = await fetchData();
+    console.log(data);
+
+    // for i in range(len(data)):
+    for (let i = 0; i < data.length; i++) {
+        const element = data[i];
+        console.log(element);
+    }
+
+}
+main();
+
+
+
+</script>

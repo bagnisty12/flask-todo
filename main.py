@@ -1,11 +1,9 @@
-from flask import Flask, render_template, request, redirect, session
+from flask import Flask, render_template, request, redirect, session, jsonify
 
 #cookies -> przez 3 miesiące trzymaj te informacje: 35insdksdfjksdfj 
 #session -> traktuj jako dict
 
-name = "Andrzej"
-age = 0
-chat = ["czesc z tej strony adam"]
+chat = []
 def add_message(new):
     # z sesji wyciągnij imie użytkownika
     name = session.get("name","Anon")
@@ -15,21 +13,21 @@ def add_message(new):
     chat.append(text)
 
 def change_name(new):
-    global name
     session['name'] = new
 
 def change_age(new):
-    global age
-    age = new
+    session["age"] = new
     
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'haslo'
 #dekorator -> funkcja, która wywołuje inną funkcję w środku, POŚREDNIK
 @app.route("/")
 def index():
+#to chcemy wziac z sesji \/       \/ -- dostaniemy, jeśli tego nie ma
     name = session.get("name", "Anon")
-
-    return render_template("index.html", zmienna=name, wiek=age,chat=chat)
+    age = session.get("age","0")
+    # po nazwie pliku html, możesz dać dowolne zmienne
+    return render_template("index.html", zmienna=name, wiek=age, chat=chat)
 
 @app.route("/test", methods=["POST"])
 def test():
@@ -58,6 +56,9 @@ def send():
 
     return redirect("/")
 
+@app.route("/wiadomosci")
+def messages():
+    return jsonify(chat)
 
 if __name__ == "__main__":
     # localhost -> 0.0.0.0 -> TWÓJ ADRES IP, TWÓJ KOMPUTER
